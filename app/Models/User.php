@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use BinaryCabin\LaravelUUID\Traits\HasUUID;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    protected $uuidFieldName = 'id';
+
+    use HasApiTokens, HasFactory, Notifiable, HasUUID;
+
+    protected $casts = [
+        'id' => 'string',
+        'email_verified_at' => 'datetime',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -33,12 +42,4 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 }

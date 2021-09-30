@@ -5,11 +5,10 @@
                 <h5 class="text-center">Welcome to the SPA in Laravel & Vue JS</h5>
                 <p class="text-center">{{currentUser.email}}</p>
                 <button class="btn btn-danger" @click="logout">Logout</button>
-                <router-link class="btn btn-primary float-right" to="/create">Create</router-link>
+                <router-link class="btn btn-primary float-right" to="/employee/create">Create</router-link>
             </div>
         </div>
         <br>
-        {{ employees.length }}
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <table class="table">
@@ -51,7 +50,7 @@ export default {
     },
     methods: {
         getEmployees(){
-            axios.get('index').then((response) => {
+            axios.get('api/getEmployees').then((response) => {
                 this.employees = response.data
                  console.log(response.data)
             }).catch((errors) => {
@@ -84,8 +83,8 @@ export default {
             })
         },
         logout(){
+            localStorage.removeItem('token')
             axios.post('api/logout').then((response) => {
-                localStorage.removeItem('token')
                 this.$router.push('/login')
             }).catch((errors) => {
                 console.log(errors)

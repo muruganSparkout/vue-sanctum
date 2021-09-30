@@ -1,6 +1,8 @@
 import Welcome from './components/WelcomeComponent.vue'
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
+import Create from './components/CreateComponent.vue'
+import Edit from './components/EditComponent.vue'
 
 export default {
     mode: 'history',
@@ -24,6 +26,17 @@ export default {
             component: Register,
             name: 'register',
             meta: {guest: true}
+        },
+        {
+            path: '/employee/create',
+            component: Create,
+            meta: {requiresAuth: true}
+        },
+        {
+            name: 'edit',
+            path: '/employee/edit/:id',
+            component: Edit,
+            meta: {requiresAuth: true}
         },
     ]
 }

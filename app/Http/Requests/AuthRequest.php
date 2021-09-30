@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class AuthRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class AuthRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,11 @@ class AuthRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         $path = $request->getPathInfo();
-        if($path='/api/login'){
+
+        if($path=='/api/login'){
             $validation = [
                 'email' => 'required|email',
                 'password' => 'required',
@@ -38,5 +40,6 @@ class AuthRequest extends FormRequest
                 'password_confirmation' => ['required'],
             ];
         }
+        return $validation;
     }
 }
